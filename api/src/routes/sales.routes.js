@@ -12,7 +12,7 @@ const salesController = new SalesController();
 salesRoutes.use(ensureAuthenticated);
 
 // Utilizamos o middleware para todas as rotas, onde podemos colocar qual perfil tem acesso
-salesRoutes.use(verifyUserAuthorization("admin"));
+salesRoutes.use(verifyUserAuthorization(["admin", "sale"]));
 
 salesRoutes.get("/", salesController.index);
 

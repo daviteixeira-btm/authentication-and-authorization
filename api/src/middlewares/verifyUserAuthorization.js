@@ -3,11 +3,13 @@
 
 const AppError = require("../utils/AppError");
 
+// recebemos uma array de quais perfils queremos dar acesso
 function verifyUserAuthorization(roleToVerify){
     return (request, response, next) => {
         const { role } = request.user;
 
-        if(role !== roleToVerify){
+        // Se o perfil não estiver dentro da array, é dado uma excessão
+        if(!roleToVerify.includes(role)){
             throw new AppError("Unathorized", 401);
         }
 

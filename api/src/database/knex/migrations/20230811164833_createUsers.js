@@ -12,7 +12,7 @@ exports.up = knex => knex.schema.createTable("users", table => {
       - 'notNullable' pois não iremos permitir valores nulos
       - E como default, todo usuário será 'customer' */
   table
-  .enum("role", ["admin", "customer"], { useNative: true, enumName: "roles"})
+  .enum("role", ["admin", "customer", "sale"], { useNative: true, enumName: "roles"})
   .notNullable().default("customer");
 
   table.timestamp("created_at").default(knex.fn.now());
