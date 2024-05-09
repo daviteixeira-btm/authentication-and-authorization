@@ -22,7 +22,8 @@ class SessionsController {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
+    // Repassamos para dentro do token a role do usuário, ou seja, o tipo de perfil
+    const token = sign({ role: user.role}, secret, {
       subject: String(user.id),
       expiresIn
     });

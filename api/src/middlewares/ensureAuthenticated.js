@@ -12,10 +12,14 @@ function ensureAuthenticated(request, response, next) {
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, authConfig.jwt.secret);
+    // Recuperamos a informação de 'role' do usuário
+    const { role, sub: user_id } = verify(token, authConfig.jwt.secret);
 
+    /* Depois a inserimos na requisição, assim poderemos verificar qual 
+    o perfil do usuário para saber se ele pode ou não executar funções dentro da API */
     request.user = {
       id: Number(user_id),
+      role
     };
 
     return next();
