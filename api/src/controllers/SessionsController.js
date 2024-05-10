@@ -28,6 +28,9 @@ class SessionsController {
       expiresIn
     });
 
+    // Removemos da resposta da requisição a senha do usuário
+    delete user.password;
+
     response.status(201).json({ token, user });
   }
 }
