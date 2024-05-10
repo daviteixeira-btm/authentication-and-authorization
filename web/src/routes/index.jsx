@@ -15,7 +15,13 @@ export function Routes() {
 
   useEffect(() => {
     api.get("/users/validated")
-      .catch((error) => signOut());
+      .catch((error) => { 
+        
+        // Verificamos se tem um status dentro, se for igual a 401 então o usuário é deslogado
+        if(error.response?.status === 401){
+          signOut();
+        }
+      });
   }, []);
 
   // Função para o redirecionamento das rotas
