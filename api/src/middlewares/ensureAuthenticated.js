@@ -10,7 +10,7 @@ function ensureAuthenticated(request, response, next) {
     throw new AppError('JWT token não informado', 401);
   }
 
-  const [, token] = authHeader.split('token=');
+  const [, token] = authHeader.cookie.split('token=');
 
   try {
     // Recuperamos a informação de 'role' do usuário
