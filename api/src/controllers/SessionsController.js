@@ -28,10 +28,18 @@ class SessionsController {
       expiresIn
     });
 
+    // Quardamos o token dentro de um cookie para deixa-lo mais seguro
+    response.cookie("token", token, {
+      httpOnly: true, // Medida de segurança que impede do cookie ser acessado por scripts no navegador
+      sameSite: "none",
+      secure: true,
+      maxAge: 15 * 60 * 1000 // Tempo de validade do cookie de 15 minutes (convertidos de milissegundos)
+    });
+
     // Removemos da resposta da requisição a senha do usuário
     delete user.password;
 
-    response.status(201).json({ token, user });
+    response.status(201).json({ user });
   }
 }
 

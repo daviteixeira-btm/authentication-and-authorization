@@ -3,13 +3,14 @@ const AppError = require('../utils/AppError');
 const authConfig = require('../configs/auth');
 
 function ensureAuthenticated(request, response, next) {
-  const authHeader = request.headers.authorization;
+  const authHeader = request.headers;
 
-  if (!authHeader) {
+  // Verifica se tem um cookie
+  if (!authHeader.cookie) {
     throw new AppError('JWT token não informado', 401);
   }
 
-  const [, token] = authHeader.split(' ');
+  const [, token] = authHeader.split('token=');
 
   try {
     // Recuperamos a informação de 'role' do usuário
